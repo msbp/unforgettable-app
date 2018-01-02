@@ -17,5 +17,23 @@
   <ion-item>
     <ion-textarea rows="4" placeholder="Message"></ion-textarea>
   </ion-item>
+
+  <ion-item>
+    <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm" placeholder="12:00" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+
+  <ion-list radio-group>
+    <ion-item>
+      <ion-label>Today</ion-label>
+      <ion-radio value="today" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tomorrow</ion-label>
+      <ion-radio value="tomorrow"></ion-radio>
+    </ion-item>
+  </ion-list>
+
   <button ion-button block>Add</button>
+
 </ion-content>
