@@ -36,8 +36,8 @@ export class AddnewPage {
     this.appData.getEntries().then((entries) => {
       this.messages = entries;
     });
-    console.log("Get entry method called")
-    console.log(this.messages)
+    console.log("Get entry method called");
+    console.log(this.messages);
   }
 
 }

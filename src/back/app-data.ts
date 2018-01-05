@@ -18,6 +18,8 @@ export class AppData {
     this.message = new Message(day, hour, minute, msg);
     this.entries.push(this.message);
     this.storage.set('entries', this.entries);
+    console.log("Adding it to:");
+    console.log(this.storage);
   }
 
   // Method retrieves the array of messages
@@ -25,7 +27,7 @@ export class AppData {
   getEntries(): Message[]{
     return this.storage.get('entries').then((entries) => {
       this.entries = entries == null ? [] : entries;
-      return this.entries.slice();
+      return this.entries;
     });
   }
 
