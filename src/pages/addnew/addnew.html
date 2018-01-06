@@ -15,15 +15,15 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-textarea rows="4" placeholder="Message"></ion-textarea>
+    <ion-textarea [(ngModel)]="message.body" rows="4" placeholder="Message"></ion-textarea>
   </ion-item>
 
   <ion-item>
     <ion-label>Time</ion-label>
-    <ion-datetime displayFormat="HH:mm" placeholder="12:00" [(ngModel)]="myDate"></ion-datetime>
+    <ion-datetime displayFormat="HH:mm" [(ngModel)]="message.time"></ion-datetime>
   </ion-item>
 
-  <ion-list radio-group>
+  <ion-list [(ngModel)]="message.day" radio-group>
     <ion-item>
       <ion-label>Today</ion-label>
       <ion-radio value="today" checked></ion-radio>
@@ -34,6 +34,8 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button block>Add</button>
+  <button ion-button block (click)='addMessage()' >Add</button>
+
+  {{message | json}}
 
 </ion-content>
