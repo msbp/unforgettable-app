@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Message } from '../../models/message.service';
-import { Transport } from '../../models/transport.ts';
+import { Transport } from '../../models/transport';
 
 /**
  * Generated class for the AddnewPage page.
