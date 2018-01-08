@@ -49,7 +49,7 @@ export class AddnewPage {
       body: this.message.body
     };
 
-    this.transport.postRequest('https://unforgettable.herokuapp.com/sample', body).then((data) => {
+    this.transport.postRequest('http://127.0.0.1:8000/sample', body).then((data) => {
       console.log('here is the post: '+ data);
     },
       (error) => {
