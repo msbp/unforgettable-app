@@ -26,10 +26,14 @@ def sample():
     else:
         return 'There was an error.'
 
-# @app.route('/getMessages', methods=['GET'])
-# def getMessages():
-#     if request.method == 'GET':
-#         return
+@app.route('/getMessages', methods=['GET'])
+def getMessages():
+    if request.method == 'GET':
+        if len(message_list) > 0:
+            return jsonify(message_list)
+        else:
+            return
+
 
 if __name__ == '__main__':
     app.run
