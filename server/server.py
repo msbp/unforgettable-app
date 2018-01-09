@@ -26,6 +26,10 @@ def sample():
     else:
         return 'There was an error.'
 
+# @app.route('/getMessages', methods=['GET'])
+# def getMessages():
+#     if request.method == 'GET':
+#         return
 
 if __name__ == '__main__':
     app.run

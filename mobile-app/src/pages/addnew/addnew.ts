@@ -20,9 +20,7 @@ import { Transport } from '../../models/transport';
 })
 export class AddnewPage {
 
-  private transport: Transport;
   private postUrl: string = 'http://127.0.0.1:8000/sample';
-  private postStatus: string = 'Not Sent';
 
   private message: Message = {
     day: '',
@@ -41,12 +39,12 @@ export class AddnewPage {
 
   addMessage() {
     this.postRequest();
-    this.showAlert();
+    this.showAlert('Status', 'Your message has been sent to the server.');
   }
 
   // This method uses the Transport class to post the data of a Message object
-  // to a server specified in the urlPost variable
-  postRequest(){
+  // to a server specified in the postUrl variable
+  postRequest() {
     let body = {
       day: this.message.day,
       hour: this.message.hour,
@@ -55,20 +53,20 @@ export class AddnewPage {
       body: this.message.body
     };
 
-      this.transport.postRequest(this.postUrl, body).then((data) => {
-      console.log('Status: ' + data);
-      return data;
+    this.transport.postRequest(this.postUrl, body).then((data) => {
+    console.log('Status:\n' + data);
+    return data;
     }, (error) => {
       console.log('Error occurred:\n' + error);
       return error;
     });
-
   }
 
-  showAlert(data: string){
+  // This method presents title of header and message of data
+  showAlert(header: string, data: string){
     let alert = this.alertController.create({
-      title: 'Status:',
-      message: 'You message has been sent to the server.',
+      title: header,
+      message: data,
       buttons: [{text:'Cancel',
                 role: 'cancel',
                 handler: () =>{

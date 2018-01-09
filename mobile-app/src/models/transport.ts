@@ -9,7 +9,8 @@ export class Transport {
 
   }
 
-  postRequest(url:string, data){
+  // This method is used to make post requests to a server
+  postRequest(url: string, data) {
     let body = data;
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -25,6 +26,24 @@ export class Transport {
         reject(error)
       })
     })
+  }
+
+  // This method is used to make get requests to a server
+  getRequest(url: string) {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, options).toPromise().then(response => {
+        resolve(response['_body'])
+      }).catch(error => {
+        reject(error)
+      });
+    });
   }
 
 }
