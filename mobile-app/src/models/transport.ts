@@ -20,7 +20,7 @@ export class Transport {
 
     return new Promise((resolve, reject) => {
       this.http.post(url, body, options).toPromise().then(response => {
-        resolve(response['_body'])
+        resolve(response) //Return response['_body'] to get json
       }).catch(error => {
         reject(error)
       })
