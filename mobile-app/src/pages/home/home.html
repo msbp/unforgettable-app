@@ -6,43 +6,43 @@
 
 <ion-content padding>
   <button navPush="AddnewPage" ionic-na ion-button block>Add New</button>
-  <button ion-button block (click)='getRequest()'>Test Get</button>
+  <button ion-button block (click)="getRequest()">Test Get</button>
   <br/>
+  <div id="message-list">
+    <ion-card>
+      <ion-item>
+        <ion-card-header>Today - 12:45</ion-card-header>
+        <button class="header-button" ion-button clear>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-card-content>
+        Sample message goes here. This message is created using the add button above.
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-card-header>Today - 12:45</ion-card-header>
-      <button class="header-button" ion-button clear>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-item>
-    <ion-card-content>
-      Sample message goes here. This message is created using the add button above.
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-card-header>Today - 17:50</ion-card-header>
+        <button class="header-button" ion-button clear>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-card-content>
+        Sample message goes here. This message is created using the add button above.
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-card-header>Today - 17:50</ion-card-header>
-      <button class="header-button" ion-button clear>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-item>
-    <ion-card-content>
-      Sample message goes here. This message is created using the add button above.
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-card-header>Tomorrow - 10:30</ion-card-header>
-      <button class="header-button" ion-button clear>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-item>
-    <ion-card-content>
-      Sample message goes here. This message is created using the add button above.
-    </ion-card-content>
-  </ion-card>
-
+    <ion-card>
+      <ion-item>
+        <ion-card-header>Tomorrow - 10:30</ion-card-header>
+        <button class="header-button" ion-button clear>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-card-content>
+        Sample message goes here. This message is created using the add button above.
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
