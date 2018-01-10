@@ -20,7 +20,7 @@ import { Transport } from '../../models/transport';
 })
 export class AddnewPage {
 
-  private postUrl: string = 'http://127.0.0.1:8000/sample';
+  private postUrl: string = 'http://127.0.0.1:8000/addMessage';
 
   private message: Message = {
     day: '',

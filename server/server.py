@@ -15,8 +15,8 @@ message_list = []
 def index():
     return 'This is the home page.'
 
-@app.route('/sample', methods=['POST'])
-def sample():
+@app.route('/addMessage', methods=['POST'])
+def addMessage():
     if request.method == 'POST':
         json_dict = request.get_json()
         #print('Heres the dictionary object:', json_dict)
@@ -26,6 +26,7 @@ def sample():
     else:
         return 'There was an error.'
 
+# Method returns list of messages in json or nothing if list is empty
 @app.route('/getMessages', methods=['GET'])
 def getMessages():
     if request.method == 'GET':
