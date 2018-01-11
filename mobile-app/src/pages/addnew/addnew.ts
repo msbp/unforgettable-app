@@ -19,8 +19,8 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class AddnewPage {
-  private static postUrl: string = 'http://unforgettable/addMessage';
-  private static idUrl: string = 'http://unforgettable/getId';
+  private static postUrl: string = 'https://unforgettable.herokuapp.com/addMessage';
+  private static idUrl: string = 'https://unforgettable.herokuapp.com/getId';
   private static currId: any;
   private static gotId: boolean = false;
 
