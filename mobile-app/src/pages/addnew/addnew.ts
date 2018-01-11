@@ -19,8 +19,8 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class AddnewPage {
-  private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
-  private static idUrl: string = 'http://127.0.0.1:8000/getId';
+  private static postUrl: string = 'http://unforgettable/addMessage';
+  private static idUrl: string = 'http://unforgettable:8000/getId';
   private static currId: number;
   private static gotId: boolean = false;
 
