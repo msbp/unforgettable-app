@@ -2,6 +2,7 @@ import boto3
 import os
 import time
 import datetime
+import requests
 from pygame import mixer
 from Downloader import Downloader
 from Messages import Messages
@@ -54,6 +55,14 @@ class Main:
         time_tuple = time.localtime(time.time())
         return (time_tuple[3], time_tuple[4])
 
+    # Method obtains list of messages from server
+    # Returns a dictionary list with messages
+    @staticmethod
+    def get_messages():
+        getUrl = 'http://127.0.0.1:8000/getMessages'
+        r = requests.get(getUrl)
+        return r.json()
+
     # Method loads to mixer and plays audio file given a path
     # If audio file does not exist, it returns out of the method
     @staticmethod
@@ -66,4 +75,10 @@ class Main:
         while mixer.music.get_busy == True:
             pass
 
-    #Close mixer
+    #Close mixer - App will be running 24/7 there will be no need to close  the mixer
+
+
+if __name__ == "__main__":
+    main = Main()
+    messages = main.get_messages()
+    print(messages)
