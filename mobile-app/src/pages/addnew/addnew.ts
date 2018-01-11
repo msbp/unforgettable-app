@@ -20,8 +20,8 @@ import { Transport } from '../../models/transport';
 })
 export class AddnewPage {
   private static postUrl: string = 'http://unforgettable/addMessage';
-  private static idUrl: string = 'http://unforgettable:8000/getId';
-  private static currId: number;
+  private static idUrl: string = 'http://unforgettable/getId';
+  private static currId: any;
   private static gotId: boolean = false;
 
   private message: Message = {
