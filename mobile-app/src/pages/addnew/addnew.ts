@@ -19,8 +19,10 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class AddnewPage {
-
-  private postUrl: string = 'http://127.0.0.1:8000/addMessage';
+  private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
+  private static idUrl: string = 'http://127.0.0.1:8000/getId';
+  private static currId: number;
+  private static gotId: boolean = false;
 
   private message: Message = {
     day: '',
@@ -31,6 +33,12 @@ export class AddnewPage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private transport: Transport, private alertController:AlertController) {
+    console.log('Constructor called.');
+    console.log('ID is:' + AddnewPage.currId);
+    if (AddnewPage.gotId == false){
+      AddnewPage.currId = this.getId();
+      AddnewPage.gotId = true;
+    }
   }
 
   ionViewDidLoad() {
@@ -39,6 +47,7 @@ export class AddnewPage {
 
   addMessage() {
     this.postRequest();
+    AddnewPage.gotId = false;
     this.showAlert('Status', 'Your message has been sent to the server.');
   }
 
@@ -50,14 +59,27 @@ export class AddnewPage {
       hour: this.message.hour,
       minute: this.message.minute,
       time: this.message.time,
-      body: this.message.body
+      body: this.message.body,
+      id: AddnewPage.currId
     };
-
-    this.transport.postRequest(this.postUrl, body).then((data) => {
+    this.transport.postRequest(AddnewPage.postUrl, body).then((data) => {
     console.log('Status:\n' + data);
     return data;
     }, (error) => {
       console.log('Error occurred:\n' + error);
+      return error;
+    });
+  }
+
+  // This method gets an ID for the message to be created from the server.
+  // The returned value is the ID to be used.
+  getId(){
+    this.transport.getRequest(AddnewPage.idUrl).then((data) => {
+      console.log('Get ID Request:\n' + data);
+      AddnewPage.currId = Number(data);
+      return data;
+    }, (error) => {
+      console.log('Error getting ID occurred:\n', error);
       return error;
     });
   }
