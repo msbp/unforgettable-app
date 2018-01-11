@@ -67,7 +67,7 @@ export class AddnewPage {
     let alert = this.alertController.create({
       title: header,
       message: data,
-      buttons: [{text:'Cancel',
+      buttons: [{text:'Ok',
                 role: 'cancel',
                 handler: () =>{
                   console.log('Cancel pressed. Leaving screen.');

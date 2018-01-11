@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Message } from '../../models/message.service';
+//import { Message } from '../../models/message.service';
 import { Transport } from '../../models/transport';
 
 @Component({
@@ -11,7 +11,7 @@ import { Transport } from '../../models/transport';
 })
 export class HomePage {
   private getUrl: string = 'http://127.0.0.1:8000/getMessages';
-  private message: Message;
+  //private message: Message;
 
   constructor(public navCtrl: NavController, private transport: Transport) {
 
