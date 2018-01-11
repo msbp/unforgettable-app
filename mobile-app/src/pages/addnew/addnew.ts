@@ -34,7 +34,6 @@ export class AddnewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private transport: Transport, private alertController:AlertController) {
     console.log('Constructor called.');
-    console.log('ID is:' + AddnewPage.currId);
     if (AddnewPage.gotId == false){
       AddnewPage.currId = this.getId();
       AddnewPage.gotId = true;
