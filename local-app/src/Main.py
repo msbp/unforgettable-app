@@ -6,10 +6,16 @@ import requests
 from pygame import mixer
 from Downloader import Downloader
 from Messages import Messages
+from MessagesList import MessagesList
+
+get_url = 'http://127.0.0.1:8000/getMessages'
 
 class Main:
     # Initialize audio player
     mixer.init()
+
+    # Creating Messages list manager
+    messages_list = MessagesList()
 
     ####################################################
     # Methods responsible in calling play_audio method #
@@ -55,13 +61,28 @@ class Main:
         time_tuple = time.localtime(time.time())
         return (time_tuple[3], time_tuple[4])
 
-    # Method obtains list of messages from server
+    # Method obtains list of messages from server. This is a
+    # helper method.
     # Returns a dictionary list with messages
     @staticmethod
     def get_messages():
-        getUrl = 'http://127.0.0.1:8000/getMessages'
-        r = requests.get(getUrl)
+        global get_url
+        r = requests.get(get_url)
         return r.json()
+
+    # Method updates the list of messages in the MessagesList
+    # object. This method should be called when the application
+    # needs/wants to update the message list
+    @staticmethod
+    def update_messages():
+        r = Main.get_messages()
+        # Error catching statements
+        if type(r) != list:
+            return False
+        if type(r[0]) != dict:
+            return False
+        Main.messages_list.add_messages(r)
+        return True
 
     # Method loads to mixer and plays audio file given a path
     # If audio file does not exist, it returns out of the method
