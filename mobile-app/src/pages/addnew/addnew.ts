@@ -21,7 +21,7 @@ import { Transport } from '../../models/transport';
 export class AddnewPage {
   private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
   private static idUrl: string = 'http://127.0.0.1:8000/getId';
-  private static currId: number;
+  private static currId: any; //Any because it could represent an error instead of a number
   private static gotId: boolean = false;
 
   private message: Message = {

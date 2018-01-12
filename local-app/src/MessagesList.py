@@ -1,3 +1,6 @@
+import requests
+
+getUrl = 'http://127.0.0.1:8000/getMessages'
 
 class MessagesList:
 
@@ -10,6 +13,12 @@ class MessagesList:
     # It iterates through the list and adds the messages to the
     # messages list
     def add_messages(self, messages):
+        global getUrl
+        r = requests.get(getUrl)
+        lst = r.json()
+
+        for each in lst:
+            message = {}
         return
 
     # Method exists. This method receives an ID as a parameter and
