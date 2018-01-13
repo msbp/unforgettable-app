@@ -10,7 +10,7 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class HomePage {
-  private getUrl: string = 'http://127.0.0.1:8000/getMessages';
+  private getUrl: string = 'https://unforgettable.herokuapp.com/getMessages';
   //private message: Message;
 
   constructor(public navCtrl: NavController, private transport: Transport) {
