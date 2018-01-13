@@ -19,9 +19,9 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class AddnewPage {
-  private static postUrl: string = 'https://unforgettable.herokuapp.com/addMessage';
-  private static idUrl: string = 'https://unforgettable.herokuapp.com/getId';
-  private static currId: any;
+  private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
+  private static idUrl: string = 'http://127.0.0.1:8000/getId';
+  private static currId: any; //Any because it could represent an error instead of a number
   private static gotId: boolean = false;
 
   private message: Message = {
@@ -34,8 +34,7 @@ export class AddnewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private transport: Transport, private alertController:AlertController) {
     console.log('Constructor called.');
-    console.log('ID is:' + AddnewPage.currId);
-    if (AddnewPage.gotId == false){
+    if (AddnewPage.gotId === false){
       AddnewPage.currId = this.getId();
       AddnewPage.gotId = true;
     }
@@ -46,9 +45,14 @@ export class AddnewPage {
   }
 
   addMessage() {
+    if (this.checkInput() === false){
+      this.showAlert('Invalid Input', 'Please make sure your input is valid. Try again.');
+      return;
+    }
     this.postRequest();
     AddnewPage.gotId = false;
     this.showAlert('Status', 'Your message has been sent to the server.');
+    this.navCtrl.pop();
   }
 
   // This method uses the Transport class to post the data of a Message object
@@ -84,6 +88,15 @@ export class AddnewPage {
     });
   }
 
+  // This method checks the input fields to see if they have been filled
+  // out properly. Returns true or false
+  checkInput(): boolean{
+    if (this.message.day === '' || this.message.body === ''){
+      return false;
+    }
+    return true;
+  }
+
   // This method presents title of header and message of data
   showAlert(header: string, data: string){
     let alert = this.alertController.create({
@@ -92,8 +105,7 @@ export class AddnewPage {
       buttons: [{text:'Ok',
                 role: 'cancel',
                 handler: () =>{
-                  console.log('Cancel pressed. Leaving screen.');
-                  this.navCtrl.pop();
+                  console.log('Ok pressed.');
                 }}]
     });
     alert.present();
