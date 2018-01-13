@@ -91,7 +91,7 @@ export class AddnewPage {
   // This method checks the input fields to see if they have been filled
   // out properly. Returns true or false
   checkInput(): boolean{
-    if (this.message.day === '' || body === ''){
+    if (this.message.day === '' || this.message.body === ''){
       return false;
     }
     return true;
