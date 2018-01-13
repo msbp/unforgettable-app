@@ -2,7 +2,7 @@ import requests
 
 #getUrl = 'http://127.0.0.1:8000/getMessages'
 
-class MessagesList:
+class MessagesService:
 
     # Constructor initializes list that will hold messages
     def __init__(self):

@@ -6,7 +6,7 @@ import requests
 from pygame import mixer
 from Downloader import Downloader
 from Messages import Messages
-from MessagesList import MessagesList
+from MessagesService import MessagesService
 
 get_url = 'http://127.0.0.1:8000/getMessages'
 
@@ -15,7 +15,7 @@ class Main:
     mixer.init()
 
     # Creating Messages list manager
-    messages_list = MessagesList()
+    messages_service = MessagesService()
 
     ####################################################
     # Methods responsible in calling play_audio method #
@@ -81,7 +81,7 @@ class Main:
             return False
         if type(r[0]) != dict:
             return False
-        Main.messages_list.add_messages(r)
+        Main.messages_service.add_messages(r)
         return True
 
     # Method loads to mixer and plays audio file given a path
