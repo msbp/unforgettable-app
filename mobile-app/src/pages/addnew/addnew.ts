@@ -58,6 +58,7 @@ export class AddnewPage {
   // This method uses the Transport class to post the data of a Message object
   // to a server specified in the postUrl variable
   postRequest() {
+    this.translateTime();
     let body = {
       day: this.message.day,
       hour: this.message.hour,
@@ -95,6 +96,15 @@ export class AddnewPage {
       return false;
     }
     return true;
+  }
+
+  // This method reads the string that carries the time and translates it into
+  // hour and minute number variables
+  translateTime() {
+    let time: string = this.message.time;
+    let arr: string[] = time.split(':');
+    this.message.hour = Number(arr[0]);
+    this.message.minute = Number(arr[1]);
   }
 
   // This method presents title of header and message of data
