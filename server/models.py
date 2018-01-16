@@ -9,12 +9,12 @@ from server import db
 # stored on the server.
 # Format of table is as follow:
 # id    day     hour    minute  body
-class Messages(db.Model):
-    __tablename__ = 'Messages'
-    id = db.Column(db.Integer, nullable=False)
+class MessagesModel(db.Model):
+    __tablename__ = 'messages'
+    id = db.Column(db.Integer, primary_key=True)
     day = db.Column(db.String, nullable=False)
-    hour = db.Column(db.String, nullable=False)
-    minute = db.Column(db.String, nullable=False)
+    hour = db.Column(db.Integer, nullable=False)
+    minute = db.Column(db.Integer, nullable=False)
     body = db.Column(db.String, nullable=False)
 
     def __init__(self, id, day, hour, minute, body):

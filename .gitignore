@@ -34,4 +34,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 
+*.pyc
+
 toDo.txt
