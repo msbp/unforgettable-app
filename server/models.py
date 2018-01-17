@@ -22,3 +22,8 @@ class MessagesModel(db.Model):
 
     def __repr__(self):
         return 'Message id:{}'.format(self.id)
+
+    # This method returns the data in a dictionary format
+    def get_dictionary(self):
+        return {'day': self.day, 'hour':self.hour,
+                'minute':self.minute, 'body':self.body}
