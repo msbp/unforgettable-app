@@ -28,14 +28,27 @@ def addMessage():
     else:
         return 'There was an error.'
 
-# Method returns list of messages in json or nothing if list is empty
+# Method returns list of messages in json dictionary or nothing if list is empty
 @app.route('/getMessages', methods=['GET'])
 def getMessages():
     if request.method == 'GET':
+        message_list = dbManager.get_all_entries()
+        if message_list == None:
+            return 'There was an error getting all entries.'
+        return jsonify(message_list)
+    else:
+        return 'There was an error.'
+
+# Method that returns a dictionary with Message data
+# It takes in an id as a parameter
+@app.route('/getMessageById', methods=['GET'])
+def getMessageById():
+    if request.method == 'GET':
+        id = request.args.get('id', type=int)
         # For now retrieve with id 1
-        json_dict = dbManager.get_entry(1)
+        json_dict = dbManager.get_entry_by_id(id)
         if json_dict == None:
-            return 'There was an error.'
+            return 'The id does not exist.'
         return jsonify(json_dict)
     else:
         return 'There was an error.'

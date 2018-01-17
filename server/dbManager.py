@@ -24,19 +24,27 @@ def add_entry(entryDict):
         db.session.rollback()
         print('There was an IntegrityError thrown:\n', e)
         return -1
-    print('id given to the message:', entry.id) 
+    print('id given to the message:', entry.id)
     return entry.id
 
 # This method retrieves a MessageModel object from the
 # table in the database. It then translates it into a dictionary
 # that is returned.
-def get_entry(entry_id):
+def get_entry_by_id(entry_id):
     obj = db.session.query(MessagesModel).get(entry_id)
     if obj == None:
         return None
-    dict_entry = {'day':obj.day, 'hour':obj.hour,
-                    'minute':obj.minute, 'body':obj.body}
-    return dict_entry
+    return obj.get_dictionary()
+
+# This method retrieves all messages currently in the messages
+# table in the database. It returns a list of dictionary
+# entries.
+def get_all_entries():
+    message_models = db.session.query(MessagesModel).all()
+    message_list = []
+    for each in message_models:
+        message_list.append(each.get_dictionary())
+    return message_list
 
 # This method removes an entry from the Messages table
 # by using its id
