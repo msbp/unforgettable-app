@@ -24,7 +24,7 @@ def add_entry(entryDict):
         db.session.rollback()
         print('There was an IntegrityError thrown:\n', e)
         return -1
-    print('id given to the message:', entry.id)
+    print('id given to the message:', entry.id) 
     return entry.id
 
 # This method retrieves a MessageModel object from the
