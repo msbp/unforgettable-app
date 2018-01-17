@@ -1,5 +1,6 @@
 from server import db
 from models import MessagesModel
+from sqlalchemy.exc import IntegrityError
 
 # This method creates tables from models imported above
 # in database
@@ -10,7 +11,11 @@ def create_db():
 # This method adds a MessageModel object to the database
 def add_entry(entry):
     db.session.add(entry)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        db.session.rollback()
+        print('There was an IntegrityError thrown:\n', e)
 
 # This method retrieves a MessageModel object from the
 # table in the database
@@ -22,6 +27,9 @@ def get_entry(entry_id):
 # by using its id
 def delete_by_id(entry_id):
     obj = db.session.query(MessagesModel).get(entry_id)
+    if (obj == None):
+        print('This ID does not exist.')
+        return
     db.session.delete(obj)
     db.session.commit()
 
