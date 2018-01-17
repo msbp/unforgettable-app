@@ -1,9 +1,5 @@
 from server import db
 
-# Note:
-#       Could change id column to have the database
-#       change by itself. To be implemented later.
-
 # This class holds the model of the Messages table that is
 # resposible for holding the data of each Message being
 # stored on the server.
@@ -17,8 +13,8 @@ class MessagesModel(db.Model):
     minute = db.Column(db.Integer, nullable=False)
     body = db.Column(db.String, nullable=False)
 
-    def __init__(self, id, day, hour, minute, body):
-        self.id = id
+    def __init__(self, day, hour, minute, body):
+        #self.id = id
         self.day = day
         self.hour = hour
         self.minute = minute

@@ -5,14 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/template1'
 db = SQLAlchemy(app)
+import dbManager
 
 # This list is responsible in storing the Messages to be retrieved by the client side
 # Format of each Message is:
 #   {'body':'', 'day':'', 'hour':0,
 #    'minute':0, 'time':'', id:0
 #   }
-message_list = []
-currId = 0
+
 
 # Routing Functions
 @app.route('/')
@@ -23,14 +23,8 @@ def index():
 def addMessage():
     if request.method == 'POST':
         json_dict = request.get_json()
-        #print('Heres the dictionary object:', json_dict)
-        message_list.append(json_dict)
-        print(message_list)
-        global currId
-        currId = currId + 1
-        if (currId > 1000):
-            currId = 0
-        return jsonify(json_dict)
+        id = dbManager.add_entry(json_dict)
+        return 'id = {}'.format(id)
     else:
         return 'There was an error.'
 
@@ -38,18 +32,21 @@ def addMessage():
 @app.route('/getMessages', methods=['GET'])
 def getMessages():
     if request.method == 'GET':
-        if len(message_list) > 0:
-            return jsonify(message_list)
-        else:
-            return
+        # For now retrieve with id 1
+        json_dict = dbManager.get_entry(1)
+        if json_dict == None:
+            return 'There was an error.'
+        return jsonify(json_dict)
+    else:
+        return 'There was an error.'
 
 # Method returns an ID to be used by the mobile application to create
 # a message to be sent back to the server
-@app.route('/getId', methods=['GET'])
-def getId():
-    if request.method == 'GET':
-        print('ID passed: ', currId)
-        return jsonify(currId)
+# @app.route('/getId', methods=['GET'])
+# def getId():
+#     if request.method == 'GET':
+#         print('ID passed: ', currId)
+#         return jsonify(currId)
 
 if __name__ == '__main__':
     app.run
