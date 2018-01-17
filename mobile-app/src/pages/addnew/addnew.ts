@@ -20,9 +20,6 @@ import { Transport } from '../../models/transport';
 })
 export class AddnewPage {
   private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
-  // private static idUrl: string = 'http://127.0.0.1:8000/getId';
-  // private static currId: any; //Any because it could represent an error instead of a number
-  // private static gotId: boolean = false;
 
   private message: Message = {
     day: '',
@@ -34,10 +31,6 @@ export class AddnewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private transport: Transport, private alertController:AlertController) {
     console.log('Constructor called.');
-    // if (AddnewPage.gotId === false){
-    //   AddnewPage.currId = this.getId();
-    //   AddnewPage.gotId = true;
-    // }
   }
 
   ionViewDidLoad() {
@@ -74,19 +67,6 @@ export class AddnewPage {
       return error;
     });
   }
-
-  // This method gets an ID for the message to be created from the server.
-  // The returned value is the ID to be used.
-  // getId(){
-  //   this.transport.getRequest(AddnewPage.idUrl).then((data) => {
-  //     console.log('Get ID Request:\n' + data);
-  //     AddnewPage.currId = Number(data);
-  //     return data;
-  //   }, (error) => {
-  //     console.log('Error getting ID occurred:\n', error);
-  //     return error;
-  //   });
-  // }
 
   // This method checks the input fields to see if they have been filled
   // out properly. Returns true or false
