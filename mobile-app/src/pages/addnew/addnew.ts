@@ -20,9 +20,9 @@ import { Transport } from '../../models/transport';
 })
 export class AddnewPage {
   private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
-  private static idUrl: string = 'http://127.0.0.1:8000/getId';
-  private static currId: any; //Any because it could represent an error instead of a number
-  private static gotId: boolean = false;
+  // private static idUrl: string = 'http://127.0.0.1:8000/getId';
+  // private static currId: any; //Any because it could represent an error instead of a number
+  // private static gotId: boolean = false;
 
   private message: Message = {
     day: '',
@@ -34,10 +34,10 @@ export class AddnewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private transport: Transport, private alertController:AlertController) {
     console.log('Constructor called.');
-    if (AddnewPage.gotId === false){
-      AddnewPage.currId = this.getId();
-      AddnewPage.gotId = true;
-    }
+    // if (AddnewPage.gotId === false){
+    //   AddnewPage.currId = this.getId();
+    //   AddnewPage.gotId = true;
+    // }
   }
 
   ionViewDidLoad() {
@@ -50,7 +50,7 @@ export class AddnewPage {
       return;
     }
     this.postRequest();
-    AddnewPage.gotId = false;
+    // AddnewPage.gotId = false;
     this.showAlert('Status', 'Your message has been sent to the server.');
     this.navCtrl.pop();
   }
@@ -58,13 +58,13 @@ export class AddnewPage {
   // This method uses the Transport class to post the data of a Message object
   // to a server specified in the postUrl variable
   postRequest() {
+    this.translateTime();
     let body = {
       day: this.message.day,
       hour: this.message.hour,
       minute: this.message.minute,
       time: this.message.time,
-      body: this.message.body,
-      id: AddnewPage.currId
+      body: this.message.body
     };
     this.transport.postRequest(AddnewPage.postUrl, body).then((data) => {
     console.log('Status:\n' + data);
@@ -77,16 +77,16 @@ export class AddnewPage {
 
   // This method gets an ID for the message to be created from the server.
   // The returned value is the ID to be used.
-  getId(){
-    this.transport.getRequest(AddnewPage.idUrl).then((data) => {
-      console.log('Get ID Request:\n' + data);
-      AddnewPage.currId = Number(data);
-      return data;
-    }, (error) => {
-      console.log('Error getting ID occurred:\n', error);
-      return error;
-    });
-  }
+  // getId(){
+  //   this.transport.getRequest(AddnewPage.idUrl).then((data) => {
+  //     console.log('Get ID Request:\n' + data);
+  //     AddnewPage.currId = Number(data);
+  //     return data;
+  //   }, (error) => {
+  //     console.log('Error getting ID occurred:\n', error);
+  //     return error;
+  //   });
+  // }
 
   // This method checks the input fields to see if they have been filled
   // out properly. Returns true or false
@@ -95,6 +95,15 @@ export class AddnewPage {
       return false;
     }
     return true;
+  }
+
+  // This method reads the string that carries the time and translates it into
+  // hour and minute number variables
+  translateTime() {
+    let time: string = this.message.time;
+    let arr: string[] = time.split(':');
+    this.message.hour = Number(arr[0]);
+    this.message.minute = Number(arr[1]);
   }
 
   // This method presents title of header and message of data
