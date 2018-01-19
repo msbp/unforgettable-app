@@ -13,7 +13,6 @@ import dbManager
 #    'minute':0, 'time':'', id:0
 #   }
 
-
 # Routing Functions
 @app.route('/')
 def index():
@@ -52,14 +51,6 @@ def getMessageById():
         return jsonify(json_dict)
     else:
         return 'There was an error.'
-
-# Method returns an ID to be used by the mobile application to create
-# a message to be sent back to the server
-# @app.route('/getId', methods=['GET'])
-# def getId():
-#     if request.method == 'GET':
-#         print('ID passed: ', currId)
-#         return jsonify(currId)
 
 if __name__ == '__main__':
     app.run
