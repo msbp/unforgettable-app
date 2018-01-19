@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Message } from './message.service';
 
 @Injectable()
 export class Transport {
@@ -39,7 +40,8 @@ export class Transport {
 
     return new Promise((resolve, reject) => {
       this.http.get(url, options).toPromise().then(response => {
-        resolve(response['_body'])
+        console.log('Response from GET request:' + response['_body']);
+        resolve(response.json());
       }).catch(error => {
         reject(error)
       });
