@@ -10,7 +10,7 @@ import { Transport } from '../../models/transport';
 })
 
 export class HomePage {
-  private getUrl: string = 'http://127.0.0.1:8000/getMessages';
+  private getUrl: string = 'https://unforgettable.herokuapp.com/getMessages';
 
   private messages: Message[];
   // There will be an array for title and body. This array will

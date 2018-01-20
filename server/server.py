@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/template1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://elvciviwkzkiew:253da35bf50b4b280868affe873de6b86f958aea948afc1843fb1c6b2b814479@ec2-54-235-73-241.compute-1.amazonaws.com:5432/d8j6ht259pkgk7'
 db = SQLAlchemy(app)
 import dbManager
 

@@ -8,7 +8,7 @@ from Downloader import Downloader
 from Messages import Messages
 from MessagesService import MessagesService
 
-get_url = 'http://127.0.0.1:8000/getMessages'
+get_url = 'https://unforgettable.herokuapp.com/getMessages'
 
 class Main:
     # Initialize audio player
