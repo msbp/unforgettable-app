@@ -34,7 +34,7 @@ def getMessages():
         message_list = dbManager.get_all_entries()
         if message_list == None:
             return 'There was an error getting all entries.'
-        return message_list
+        return 'jsonify(message_list)'
     else:
         return 'There was an error.'
 
