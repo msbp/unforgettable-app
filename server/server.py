@@ -18,7 +18,7 @@ import dbManager
 def index():
     return 'This is the home page.'
 
-@app.route('log')
+@app.route('/log')
 def log():
     return 'base URL', app.config['SQLALCHEMY_DATABASE_URI'], '\ndb:', db
 
