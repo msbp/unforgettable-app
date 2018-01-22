@@ -8,6 +8,12 @@ def create_db():
     db.create_all()
     db.session.commit()
 
+def sampleTest():
+    if db == None:
+        return 'Not initialized'
+    else:
+        return 'It has been initialized'
+
 # This method creates a MessagesModel object from a dictionary,
 # adds and commits it to the database. It then returns the id
 # given to it by the database. If there is an exception it

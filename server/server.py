@@ -20,10 +20,7 @@ def index():
 
 @app.route('/log')
 def log():
-    if db == None:
-        return 'Not initialized'
-    else:
-        return 'It has been initialized'
+    return dbManager.sampleTest()
 
 @app.route('/addMessage', methods=['POST'])
 def addMessage():
