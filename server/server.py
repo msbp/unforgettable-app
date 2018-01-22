@@ -18,6 +18,10 @@ import dbManager
 def index():
     return 'This is the home page.'
 
+@app.route('log')
+def log():
+    return 'base URL', app.config['SQLALCHEMY_DATABASE_URI'], '\ndb:', db;
+
 @app.route('/addMessage', methods=['POST'])
 def addMessage():
     if request.method == 'POST':
@@ -34,7 +38,7 @@ def getMessages():
         message_list = dbManager.get_all_entries()
         if message_list == None:
             return 'There was an error getting all entries.'
-        return 'jsonify(message_list)'
+        return jsonify(message_list)
     else:
         return 'There was an error.'
 
