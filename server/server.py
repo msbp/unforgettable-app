@@ -20,7 +20,7 @@ def index():
 
 @app.route('log')
 def log():
-    return 'base URL', app.config['SQLALCHEMY_DATABASE_URI'], '\ndb:', db;
+    return 'base URL', app.config['SQLALCHEMY_DATABASE_URI'], '\ndb:', db
 
 @app.route('/addMessage', methods=['POST'])
 def addMessage():
