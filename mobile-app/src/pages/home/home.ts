@@ -36,8 +36,6 @@ export class HomePage {
   // It should only be called if there was a change in the list
   getRequest(){
       this.transport.getRequest(this.getUrl).then((data: Message[]) => {
-      console.log('Get Request:\n' + data);
-      console.log('Sample:' + data[4].body)
       this.messages = data;
       return data;
     }, (error) => {
