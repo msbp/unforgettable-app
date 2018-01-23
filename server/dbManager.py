@@ -34,8 +34,7 @@ def get_entry_by_id(entry_id):
     obj = db.session.query(MessagesModel).get(entry_id)
     if obj == None:
         return None
-    return obj
-    #return obj.get_dictionary()
+    return obj.get_dictionary()
 
 # This method retrieves all messages currently in the messages
 # table in the database. It returns a list of dictionary
@@ -43,9 +42,11 @@ def get_entry_by_id(entry_id):
 def get_all_entries():
     message_models = db.session.query(MessagesModel).all()
     message_list = []
+    if len(message_models) == 0:
+        return 'Lenght is 0'
     for each in message_models:
-        message_list.append(each)
-        #message_list.append(each.get_dictionary())
+        message_list.append(each.get_dictionary())
+    return 'It worked'
     return message_list
 
 # This method removes an entry from the Messages table
