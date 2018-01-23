@@ -42,11 +42,8 @@ def get_entry_by_id(entry_id):
 def get_all_entries():
     message_models = db.session.query(MessagesModel).all()
     message_list = []
-    if len(message_models) == 0:
-        return 'Lenght is 0'
     for each in message_models:
         message_list.append(each.get_dictionary())
-    return 'It worked'
     return message_list
 
 # This method removes an entry from the Messages table
