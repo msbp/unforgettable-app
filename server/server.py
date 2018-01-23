@@ -57,5 +57,14 @@ def getMessageById():
     else:
         return 'There was an error.'
 
+# Method that deletes a message from the database by using its id
+@app.route('/deleteMessageById', methods['GET'])
+def deleteMessageById():
+    if request.method == 'GET':
+        id = request.args.get('id', type=int)
+        status = dbManager.delete_by_id(id)
+        console.log('Status from deleteMessageById: ', status)
+        return
+
 if __name__ == '__main__':
     app.run(debug=True)

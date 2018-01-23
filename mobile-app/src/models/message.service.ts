@@ -4,4 +4,5 @@ export interface Message{
   minute: number;
   time: string;
   body: string;
+  id?: number;
 }
