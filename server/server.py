@@ -58,7 +58,7 @@ def getMessageById():
         return 'There was an error.'
 
 # Method that deletes a message from the database by using its id
-@app.route('/deleteMessageById', methods['GET'])
+@app.route('/deleteMessageById', methods=['GET'])
 def deleteMessageById():
     if request.method == 'GET':
         id = request.args.get('id', type=int)
