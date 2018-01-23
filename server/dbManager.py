@@ -8,12 +8,6 @@ def create_db():
     db.create_all()
     db.session.commit()
 
-def sampleTest():
-    if db == None:
-        return 'Not initialized'
-    else:
-        return 'It has been initialized'
-
 # This method creates a MessagesModel object from a dictionary,
 # adds and commits it to the database. It then returns the id
 # given to it by the database. If there is an exception it
@@ -40,7 +34,8 @@ def get_entry_by_id(entry_id):
     obj = db.session.query(MessagesModel).get(entry_id)
     if obj == None:
         return None
-    return obj.get_dictionary()
+    return obj
+    #return obj.get_dictionary()
 
 # This method retrieves all messages currently in the messages
 # table in the database. It returns a list of dictionary
@@ -49,7 +44,8 @@ def get_all_entries():
     message_models = db.session.query(MessagesModel).all()
     message_list = []
     for each in message_models:
-        message_list.append(each.get_dictionary())
+        message_list.append(each)
+        #message_list.append(each.get_dictionary())
     return message_list
 
 # This method removes an entry from the Messages table

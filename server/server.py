@@ -20,7 +20,8 @@ def index():
 
 @app.route('/log')
 def log():
-    return dbManager.sampleTest()
+    return 'log page'
+
 
 @app.route('/addMessage', methods=['POST'])
 def addMessage():
