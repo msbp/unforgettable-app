@@ -44,7 +44,6 @@ def get_all_entries():
     message_list = []
     for each in message_models:
         message_list.append(each.get_dictionary())
-        print('Log this: ', each.get_dictionary())
     return message_list
 
 # This method removes an entry from the Messages table

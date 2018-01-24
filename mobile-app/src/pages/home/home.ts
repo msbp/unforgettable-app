@@ -11,6 +11,7 @@ import { Transport } from '../../models/transport';
 
 export class HomePage {
   private getUrl: string = 'https://unforgettable.herokuapp.com/getMessages';
+  private deleteByIdUrl: String = 'https://unforgettable.herokuapp.com/deleteMessageById';
 
   private messages: Message[];
   // There will be an array for title and body. This array will
@@ -20,6 +21,10 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private transport: Transport) {
 
+  }
+
+  sampleId(str: string){
+    console.log('ID IS: ' + str);
   }
 
   ionViewWillEnter(){
@@ -39,7 +44,7 @@ export class HomePage {
       this.messages = data;
       return data;
     }, (error) => {
-      console.log('Error ocurred:\n' + error);
+      console.log('Error ocurred calling getRequest.\nError: ' + error);
       return error;
     });
   }
@@ -50,8 +55,18 @@ export class HomePage {
     this.cardInformation = [];
     for (let message of this.messages){
       let t = message.day + ' - ' + message.hour + ':' + message.minute;
-      this.cardInformation.push({title:t, body:message.body});
+      this.cardInformation.push({title:t, body:message.body, id:message.id});
     }
   }
 
+  // This method is used to delete a Message from the database.
+  // It should reload the main page once it has run.
+  deleteMessageById(id: string){
+    this.transport.getRequest(this.deleteByIdUrl + '?id=' + id).then((data: string) => {
+      console.log('deleteMessageById called, status returned: ' + data);
+    }, (error) => {
+      console.log('Error ocurred calling deleteMessageById.\nError: ' + error);
+    });
+  }
+  
 }
