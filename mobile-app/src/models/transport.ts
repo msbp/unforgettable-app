@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Message } from './message.service';
 
 @Injectable()
 export class Transport {
