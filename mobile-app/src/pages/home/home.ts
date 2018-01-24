@@ -23,18 +23,32 @@ export class HomePage {
 
   }
 
-  sampleId(str: string){
-    console.log('ID IS: ' + str);
+  // This method is automatically called when the view is about to enter
+  ionViewWillEnter(){
+    this.updateViewWithMessages();
   }
 
-  ionViewWillEnter(){
+  // This method is responsible for the refresher component of the page
+  doRefresh(refresher){
+    this.updateViewWithMessages();
+    console.log('Refresher has been called.');
+    setTimeout(() => {
+      console.log('Operation has ended.');
+      refresher.complete();
+    }, 1000);
+}
+
+  // This method is used to update the messages on the view.
+  // It returns false if messages is undefined. Otherwise it returns true.
+  updateViewWithMessages(){
     this.getRequest();
-    //Change this code to be in the get request code. so it occurs in order.
     if (this.messages == undefined){
-      return
+      return false;
     }
     this.createArraysFromObject();
+    return true;
   }
+
 
   // This method uses the Transport class to retrieve a list of the data of Message
   // objects from the specified server in the getUrl variable.
@@ -68,5 +82,5 @@ export class HomePage {
       console.log('Error ocurred calling deleteMessageById.\nError: ' + error);
     });
   }
-  
+
 }
