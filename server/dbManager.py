@@ -48,17 +48,31 @@ def get_all_entries():
 
 # This method removes an entry from the Messages table
 # by using its id
+# It returns -1 if the ID does not exist or -2 if there is an
+# exception is thrown. Returns 0 if successful.
 def delete_by_id(entry_id):
     obj = db.session.query(MessagesModel).get(entry_id)
     if (obj == None):
         print('This ID does not exist.')
-        return
+        return -1
     db.session.delete(obj)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        db.session.rollback()
+        print('There was an IntegrityError thrown:\n', e)
+        return -2
+    return 0
 
 # This method deletes all rows in Messages table
-# It returns the number of rows deleted
+# It returns the number of rows deleted if successful
+# or -1 if there is an exception thrown.
 def delete_all_entries():
     num = db.session.query(MessagesModel).delete()
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        db.session.rollback()
+        print('There was an IntegrityError thrown:\n', e)
+        return -1
     return num

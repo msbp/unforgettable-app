@@ -26,4 +26,4 @@ class MessagesModel(db.Model):
     # This method returns the data in a dictionary format
     def get_dictionary(self):
         return {'day': self.day, 'hour':self.hour,
-                'minute':self.minute, 'body':self.body}
+                'minute':self.minute, 'body':self.body, 'id':self.id}

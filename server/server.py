@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/template1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://elvciviwkzkiew:253da35bf50b4b280868affe873de6b86f958aea948afc1843fb1c6b2b814479@ec2-54-235-73-241.compute-1.amazonaws.com:5432/d8j6ht259pkgk7'
 db = SQLAlchemy(app)
 import dbManager
 
@@ -17,6 +17,11 @@ import dbManager
 @app.route('/')
 def index():
     return 'This is the home page.'
+
+@app.route('/log')
+def log():
+    return 'log page'
+
 
 @app.route('/addMessage', methods=['POST'])
 def addMessage():
@@ -52,5 +57,14 @@ def getMessageById():
     else:
         return 'There was an error.'
 
+# Method that deletes a message from the database by using its id
+@app.route('/deleteMessageById', methods=['GET'])
+def deleteMessageById():
+    if request.method == 'GET':
+        id = request.args.get('id', type=int)
+        status = dbManager.delete_by_id(id)
+        console.log('Status from deleteMessageById: ', status)
+        return
+
 if __name__ == '__main__':
-    app.run
+    app.run(debug=True)

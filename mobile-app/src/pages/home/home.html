@@ -12,7 +12,7 @@
   <ion-card  *ngFor='let el of cardInformation'>
   <ion-item>
     <ion-card-header>{{el.title}}</ion-card-header>
-    <button class="header-button" ion-button clear>
+    <button class="header-button" ion-button clear (click)="deleteMessageById(el.id)">
       <ion-icon name="trash"></ion-icon>
     </button>
   </ion-item>

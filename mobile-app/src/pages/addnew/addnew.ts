@@ -19,7 +19,7 @@ import { Transport } from '../../models/transport';
   providers: [Transport]
 })
 export class AddnewPage {
-  private static postUrl: string = 'http://127.0.0.1:8000/addMessage';
+  private static postUrl: string = 'https://unforgettable.herokuapp.com/addMessage';
 
   private message: Message = {
     day: '',
