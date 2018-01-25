@@ -39,7 +39,10 @@ def getMessages():
         message_list = dbManager.get_all_entries()
         if message_list == None:
             return 'There was an error getting all entries.'
-        return jsonify(message_list)
+        response = jsonify(message_list)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+        #return jsonify(message_list)
     else:
         return 'There was an error.'
 
