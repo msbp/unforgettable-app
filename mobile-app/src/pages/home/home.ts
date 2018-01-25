@@ -32,12 +32,14 @@ export class HomePage {
 
   // This method is responsible for the refresher component of the page
   doRefresh(refresher){
+    refresher.pullMin = 110;
+    refresher.pullMax = refresher.pullMin + 200;
     this.updateViewWithMessages();
     console.log('Refresher has been called.');
     setTimeout(() => {
       console.log('Operation has ended.');
       refresher.complete();
-    }, 1000);
+    }/*, 1000*/);
 }
 
   // This method is used to update the messages on the view.
