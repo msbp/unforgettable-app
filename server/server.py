@@ -66,7 +66,7 @@ def deleteMessageById():
         id = request.args.get('id', type=int)
         status = dbManager.delete_by_id(id)
         console.log('Status from deleteMessageById: ', status)
-        return
+        return 'Message deleted called.'
 
 if __name__ == '__main__':
     app.run(debug=True)
