@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+
 import { Message } from '../../models/message.service';
 import { Transport } from '../../models/transport';
 
@@ -19,7 +21,7 @@ export class HomePage {
   // cardInformation[].title and cardInformation[].body .
   private cardInformation = [];
 
-  constructor(public navCtrl: NavController, private transport: Transport) {
+  constructor(public navCtrl: NavController, private transport: Transport, private alertController:AlertController) {
 
   }
 
@@ -79,8 +81,25 @@ export class HomePage {
     this.transport.getRequest(this.deleteByIdUrl + '?id=' + id).then((data: string) => {
       console.log('deleteMessageById called, status returned: ' + data);
     }, (error) => {
+      //this.showAlert('Status', 'An error occurred deleting the item.');
       console.log('Error ocurred calling deleteMessageById.\nError: ' + error);
     });
+    this.showAlert('Status', 'Your message has successfully been deleted.');
+    this.updateViewWithMessages();
+  }
+
+  // This method presents title of header and message of data
+  showAlert(header: string, data: string){
+    let alert = this.alertController.create({
+      title: header,
+      message: data,
+      buttons: [{text:'Ok',
+                role: 'cancel',
+                handler: () =>{
+                  console.log('Ok pressed.');
+                }}]
+    });
+    alert.present();
   }
 
 }
