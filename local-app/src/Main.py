@@ -76,10 +76,10 @@ class Main:
     @staticmethod
     def update_messages():
         r = Main.get_messages()
-        # Error catching statements
         if len(r) == 0:
             Main.messages_service.remove_all()
             return True
+        # Error catching statements
         if type(r) != list:
             return False
         if type(r[0]) != dict:
@@ -98,6 +98,25 @@ class Main:
         mixer.music.play()
         while mixer.music.get_busy == True:
             pass
+
+
+    @staticmethod
+    def get_sleep_time():
+        ####### - Change this after to be retrieved from server
+        START_TIME = 10
+        END_TIME = 18
+        #######
+        current_time = Main.get_time()
+        if current_time[0] >= END_TIME:
+            sleep_time = 24-current_time[0] + START_TIME # Number of hours until START_TIME
+            sleep_time = sleep_time * 60 * 60 # Converted to seconds
+            sleep_time = sleep_time - curr_time[1] * 60 # Deduct the minutes from the sleep_time
+            return sleep_time
+        if current_time[0] < START_TIME:
+            sleep_time = START_TIME - current_time[0] # Number of hours until START_TIME
+            sleep_time = sleep_time * 60 * 60 # Converted to seconds
+            sleep_time = sleep_time - current_time[1] * 60 # Deduct the minutes from the sleep_time
+            return sleep_time
 
     #Close mixer - App will be running 24/7 there will be no need to close  the mixer
 
