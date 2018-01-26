@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 import { Message } from '../../models/message.service';
 import { Transport } from '../../models/transport';
@@ -21,7 +22,7 @@ export class HomePage {
   // cardInformation[].title and cardInformation[].body .
   private cardInformation = [];
 
-  constructor(public navCtrl: NavController, private transport: Transport, private alertController:AlertController) {
+  constructor(public navCtrl: NavController, private transport: Transport, private alertController: AlertController, private loadingController: LoadingController) {
 
   }
 
@@ -102,6 +103,19 @@ export class HomePage {
                 }}]
     });
     alert.present();
+  }
+
+  // This method displays a loading controller
+  // The parameter passed is the time in ms
+  presentLoadingController(t: number){
+    let loading = this.loadingController.create({
+      spinner: 'crescent',
+      content: 'Loading please wait'
+    });
+    loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, t);
   }
 
 }
