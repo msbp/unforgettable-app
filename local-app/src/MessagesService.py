@@ -16,9 +16,9 @@ class MessagesService:
     # messages list
     def add_messages(self, message_list):
         for message in message_list:
-            if self.exists(message['id']) == True:
-                continue
-            self.create_audio(message)
+            # if self.exists(message['id']) == True:
+            #     continue
+            #self.create_audio(message)
             self.messages.append(message)
         return
 
@@ -28,11 +28,17 @@ class MessagesService:
     def remove_by_id(self, id):
         return
 
+    # Method removes all the messages from the messages array.
+    # This is called when all the messages have been cleared
+    # from the server.
+    def remove_all(self):
+        self.messages = []
+
     # Method create_audio. This method is called when a new message is
     # received by the application. It utilizes the Downloader class to
     # download and create a new audio file.
     def create_audio(self, message):
-        if not check_path('../Audio/Messages/'):
+        if not Downloader.check_path('../Audio/Messages/'):
             os.makedirs('../Audio/Messages')
         fname = str(message['id'])
         Downloader.download_audio(message['body'])

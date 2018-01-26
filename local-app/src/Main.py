@@ -77,6 +77,9 @@ class Main:
     def update_messages():
         r = Main.get_messages()
         # Error catching statements
+        if len(r) == 0:
+            Main.messages_service.remove_all()
+            return True
         if type(r) != list:
             return False
         if type(r[0]) != dict:
