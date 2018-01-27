@@ -24,10 +24,11 @@ class Main:
     # AfternoonBeing and AfternoonEnd determine when to switch greetings
     # time is an array in format (HOUR, MINUTE)
     @staticmethod
-    def say_greetings(time):
-        if time[0] < Messages.AfternoonBegin:
+    def say_greetings():
+        curret_time = Main.get_time()
+        if current_time[0] < Messages.AfternoonBegin:
             play_audio("Greetings/Morning")
-        elif time[0] < Messages.AfternoonEnd:
+        elif current_time[0] < Messages.AfternoonEnd:
             play_audio("Greetings/Afternoon")
         else:
             play_audio("Greetings/Night")
@@ -99,7 +100,8 @@ class Main:
         while mixer.music.get_busy == True:
             pass
 
-
+    # This method returns how long the timer should sleep for.
+    # The return value is sleep time in seconds
     @staticmethod
     def get_sleep_time():
         ####### - Change this after to be retrieved from server
@@ -117,6 +119,12 @@ class Main:
             sleep_time = sleep_time * 60 * 60 # Converted to seconds
             sleep_time = sleep_time - current_time[1] * 60 # Deduct the minutes from the sleep_time
             return sleep_time
+
+    # This method is responsible to play a sound based on the current time
+    @staticmethod
+    def play_scheduled_audio():
+        current_time = Main.get_time()
+        return
 
     #Close mixer - App will be running 24/7 there will be no need to close  the mixer
 

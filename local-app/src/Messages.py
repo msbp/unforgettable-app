@@ -8,7 +8,7 @@ class Messages:
     Afternoon = "Boa tarde."
     Night = "Boa noite."
     AfternoonBegin = 12
-    AfternoonEnd = 12
+    AfternoonEnd = 17
 
     # Hours:
     # Array that goes from beginning of day till end
