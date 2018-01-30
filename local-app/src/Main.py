@@ -24,14 +24,14 @@ class Main:
     # AfternoonBeing and AfternoonEnd determine when to switch greetings
     # time is an array in format (HOUR, MINUTE)
     @staticmethod
-    def say_greetings():
-        curret_time = Main.get_time()
+    def say_greetings(current_time):
         if current_time[0] < Messages.AfternoonBegin:
             play_audio("Greetings/Morning")
         elif current_time[0] < Messages.AfternoonEnd:
             play_audio("Greetings/Afternoon")
         else:
             play_audio("Greetings/Night")
+
     # Method says meal warnings. 2 Options: Lunch and Dinner
     # Lunch[0] holds time of lunch and Dinner[0] holds time of dinner
     # time is an array in format (HOUR, MINUTE)
@@ -41,6 +41,7 @@ class Main:
             play_audio("Meals/Lunch")
         elif time[0] <= Messages.Dinner[0]:
             play_audio("Meals/Dinner")
+
     # Method says the current day of the week
     # Monday = 0 and Sunday = 6
     # day holds the index
@@ -124,6 +125,14 @@ class Main:
     @staticmethod
     def play_scheduled_audio():
         current_time = Main.get_time()
+        Main.say_greetings(current_time)
+        time.sleep(1.5)
+        # Deal with meal warnings - Check minutes as well
+        if (current_time[0] == (Messages.Lunch[0] - 1)):
+            break
+
+        # Deal with message warnings - use a priority queue?
+
         return
 
     #Close mixer - App will be running 24/7 there will be no need to close  the mixer

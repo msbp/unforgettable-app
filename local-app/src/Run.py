@@ -10,9 +10,6 @@ if __name__ == '__main__':
         Main.play_scheduled_audio()
         time.sleep(sleep_time)
         pass
-        Main.say_greetings()
-        # Check if this is really needed ----
-        time.sleep(1.5)
         ###########
 
 

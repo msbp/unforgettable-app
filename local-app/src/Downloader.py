@@ -60,10 +60,10 @@ class Downloader:
         if not check_path("../Audio/Meals/"):
             os.makedirs("../Audio/Meals/")
         if not check_path("../Audio/Meals/Lunch.ogg"):
-            download_audio(Messages.Lunch[1])
+            download_audio(Messages.Lunch[2])
             create_audio("../Audio/Meals/Lunch", speech["AudioStream"].read())
         if not check_path("../Audio/Meals/Dinner.ogg"):
-            download_audio(Messages.Dinner[1])
+            download_audio(Messages.Dinner[2])
             create_audio("../Audio/Meals/Dinner", speech["AudioStream"].read())
 
     # Method download and creates day audio files if they do not exist
