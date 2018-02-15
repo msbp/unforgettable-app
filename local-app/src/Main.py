@@ -101,6 +101,16 @@ class Main:
         while mixer.music.get_busy == True:
             pass
 
+    # Method that takes in current time in hours and minutes
+    # and returns the time in just minutes
+    @staticmethod
+    def time_to_minutes(time):
+        curr_hour = time[0]
+        curr_minutes = time[1]
+        minutes = curr_hour * 60
+        minutes = minutes + curr_minutes
+        return minutes
+
     # This method returns how long the timer should sleep for.
     # The return value is sleep time in seconds
     @staticmethod
@@ -110,6 +120,7 @@ class Main:
         END_TIME = 18
         #######
         current_time = Main.get_time()
+        # The two following cases set sleeping time for when the application should be sleeping
         if current_time[0] >= END_TIME:
             sleep_time = 24-current_time[0] + START_TIME # Number of hours until START_TIME
             sleep_time = sleep_time * 60 * 60 # Converted to seconds
@@ -120,6 +131,10 @@ class Main:
             sleep_time = sleep_time * 60 * 60 # Converted to seconds
             sleep_time = sleep_time - current_time[1] * 60 # Deduct the minutes from the sleep_time
             return sleep_time
+        #####
+        # Need Priority Queue to hold on to messages based on time.
+        # Should be able to delete by priority and by id
+        #####
 
     # This method is responsible to play a sound based on the current time
     @staticmethod
@@ -128,10 +143,28 @@ class Main:
         Main.say_greetings(current_time)
         time.sleep(1.5)
         # Deal with meal warnings - Check minutes as well
-        if (current_time[0] == (Messages.Lunch[0] - 1)):
-            break
+        # ASK: IS IT LUNCH/DINNER TIME YET?
+        # WRITE METHOD TO DEAL WITH MEAL WARNINGS - SUCH AS WHEN TO SAY REMINDER AND
+        # HOW LONG TO SLEEP FOR
+
+        # CREATE REMINDER FOR LUNCH AND DINNER HERE --------
+        current_time_in_minutes = Main.time_to_minutes(current_time)
+        lunch_time_in_minutes = Main.time_to_minutes((Messages.Lunch[0], Messages.Lunch[1]))
+        dinner_time_in_minutes = Main.time_to_minutes((Messages.Dinner[0], Messages.Dinner[1]))
+        if (current_time_in_minutes >= lunch_time_in_minutes - 15) and (current_time_in_minutes <= lunch_time_in_minutes):
+            Main.say_meal_warning(current_time)
+        elif (current_time_in_minutes >= dinner_time_in_minutes - 15) and (current_time_in_minutes <= dinner_time_in_minutes):
+            Main.say_meal_warning(current_time)
+
+        
+
+        # GET TIME FOR NEXT REMINDER IF IT MATCHES, THEN SAY IT AND POP REMINDER OFF
 
         # Deal with message warnings - use a priority queue?
+        # KEEP TRACK OF NEXT MESSAGE AND IF IT IS TIME THEN SAY IT
+        # SET SLEEP
+
+        # SLEEP SHOULD BE SET FOR EVERY HOUR OR SO.
 
         return
 
