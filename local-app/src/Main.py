@@ -143,11 +143,10 @@ class Main:
         Main.say_greetings(current_time)
         time.sleep(1.5)
         # Deal with meal warnings - Check minutes as well
-        # ASK: IS IT LUNCH/DINNER TIME YET?
-        # WRITE METHOD TO DEAL WITH MEAL WARNINGS - SUCH AS WHEN TO SAY REMINDER AND
-        # HOW LONG TO SLEEP FOR
+        # Decide when to call update method
+        ########
 
-        # CREATE REMINDER FOR LUNCH AND DINNER HERE --------
+        # Lunch and dinner reminder
         current_time_in_minutes = Main.time_to_minutes(current_time)
         lunch_time_in_minutes = Main.time_to_minutes((Messages.Lunch[0], Messages.Lunch[1]))
         dinner_time_in_minutes = Main.time_to_minutes((Messages.Dinner[0], Messages.Dinner[1]))
@@ -156,17 +155,21 @@ class Main:
         elif (current_time_in_minutes >= dinner_time_in_minutes - 15) and (current_time_in_minutes <= dinner_time_in_minutes):
             Main.say_meal_warning(current_time)
 
-        
+        # Next message reminder
+        next_message = Main.messages_service.get_next_message()
+        if (current_time[0] == next_message['hour'] and current_time[1] == next_message['minute']):
+            Main.messages_service.create_audio(next_message)
+            Main.play_audio('Messages/' + next_message['id'])
+            Main.messages_service.remove_by_id(next_message['id'])
+            # ALSO REMOVE FROM SERVER
+            # CREATE METHOD ON SERVER SIDE TO REMOVE IT FROM SERVER
+            # CALL METHOD HERE
+            #############################################
+            #############################################
+            #############################################
+            #############################################
 
-        # GET TIME FOR NEXT REMINDER IF IT MATCHES, THEN SAY IT AND POP REMINDER OFF
 
-        # Deal with message warnings - use a priority queue?
-        # KEEP TRACK OF NEXT MESSAGE AND IF IT IS TIME THEN SAY IT
-        # SET SLEEP
-
-        # SLEEP SHOULD BE SET FOR EVERY HOUR OR SO.
-
-        return
 
     #Close mixer - App will be running 24/7 there will be no need to close  the mixer
 
