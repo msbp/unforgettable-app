@@ -24,13 +24,14 @@ class Main:
     # AfternoonBeing and AfternoonEnd determine when to switch greetings
     # time is an array in format (HOUR, MINUTE)
     @staticmethod
-    def say_greetings(time):
-        if time[0] < Messages.AfternoonBegin:
+    def say_greetings(current_time):
+        if current_time[0] < Messages.AfternoonBegin:
             play_audio("Greetings/Morning")
-        elif time[0] < Messages.AfternoonEnd:
+        elif current_time[0] < Messages.AfternoonEnd:
             play_audio("Greetings/Afternoon")
         else:
             play_audio("Greetings/Night")
+
     # Method says meal warnings. 2 Options: Lunch and Dinner
     # Lunch[0] holds time of lunch and Dinner[0] holds time of dinner
     # time is an array in format (HOUR, MINUTE)
@@ -40,6 +41,7 @@ class Main:
             play_audio("Meals/Lunch")
         elif time[0] <= Messages.Dinner[0]:
             play_audio("Meals/Dinner")
+
     # Method says the current day of the week
     # Monday = 0 and Sunday = 6
     # day holds the index
@@ -76,6 +78,9 @@ class Main:
     @staticmethod
     def update_messages():
         r = Main.get_messages()
+        if len(r) == 0:
+            Main.messages_service.remove_all()
+            return True
         # Error catching statements
         if type(r) != list:
             return False
@@ -95,6 +100,76 @@ class Main:
         mixer.music.play()
         while mixer.music.get_busy == True:
             pass
+
+    # Method that takes in current time in hours and minutes
+    # and returns the time in just minutes
+    @staticmethod
+    def time_to_minutes(time):
+        curr_hour = time[0]
+        curr_minutes = time[1]
+        minutes = curr_hour * 60
+        minutes = minutes + curr_minutes
+        return minutes
+
+    # This method returns how long the timer should sleep for.
+    # The return value is sleep time in seconds
+    @staticmethod
+    def get_sleep_time():
+        ####### - Change this after to be retrieved from server
+        START_TIME = 10
+        END_TIME = 18
+        #######
+        current_time = Main.get_time()
+        # The two following cases set sleeping time for when the application should be sleeping
+        if current_time[0] >= END_TIME:
+            sleep_time = 24-current_time[0] + START_TIME # Number of hours until START_TIME
+            sleep_time = sleep_time * 60 * 60 # Converted to seconds
+            sleep_time = sleep_time - curr_time[1] * 60 # Deduct the minutes from the sleep_time
+            return sleep_time
+        if current_time[0] < START_TIME:
+            sleep_time = START_TIME - current_time[0] # Number of hours until START_TIME
+            sleep_time = sleep_time * 60 * 60 # Converted to seconds
+            sleep_time = sleep_time - current_time[1] * 60 # Deduct the minutes from the sleep_time
+            return sleep_time
+        #####
+        # Need Priority Queue to hold on to messages based on time.
+        # Should be able to delete by priority and by id
+        #####
+
+    # This method is responsible to play a sound based on the current time
+    @staticmethod
+    def play_scheduled_audio():
+        current_time = Main.get_time()
+        Main.say_greetings(current_time)
+        time.sleep(1.5)
+        # Deal with meal warnings - Check minutes as well
+        # Decide when to call update method
+        ########
+
+        # Lunch and dinner reminder
+        current_time_in_minutes = Main.time_to_minutes(current_time)
+        lunch_time_in_minutes = Main.time_to_minutes((Messages.Lunch[0], Messages.Lunch[1]))
+        dinner_time_in_minutes = Main.time_to_minutes((Messages.Dinner[0], Messages.Dinner[1]))
+        if (current_time_in_minutes >= lunch_time_in_minutes - 15) and (current_time_in_minutes <= lunch_time_in_minutes):
+            Main.say_meal_warning(current_time)
+        elif (current_time_in_minutes >= dinner_time_in_minutes - 15) and (current_time_in_minutes <= dinner_time_in_minutes):
+            Main.say_meal_warning(current_time)
+
+        # Next message reminder
+        next_message = Main.messages_service.get_next_message()
+        if (current_time[0] == next_message['hour'] and current_time[1] == next_message['minute']):
+            Main.messages_service.create_audio(next_message)
+            Main.play_audio('Messages/' + next_message['id'])
+            Main.messages_service.remove_by_id(next_message['id'])
+            # ALSO REMOVE FROM SERVER
+            # CREATE METHOD ON SERVER SIDE TO REMOVE IT FROM SERVER
+            # CALL METHOD HERE
+            #############################################
+            #############################################
+            #############################################
+            #############################################
+
+
 
     #Close mixer - App will be running 24/7 there will be no need to close  the mixer
 

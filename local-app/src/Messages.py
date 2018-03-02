@@ -8,7 +8,7 @@ class Messages:
     Afternoon = "Boa tarde."
     Night = "Boa noite."
     AfternoonBegin = 12
-    AfternoonEnd = 12
+    AfternoonEnd = 17
 
     # Hours:
     # Array that goes from beginning of day till end
@@ -18,8 +18,8 @@ class Messages:
 
     # Meals:
     # Array includes hour of meal and reminder to be spoken
-    Lunch = (11, "")
-    Dinner = (17, "")
+    Lunch = (11, 30, "")
+    Dinner = (17, 30, "")
 
     # Days:
     # Array with all weekdays. day[0] = Monday ... day[6] = Sunday

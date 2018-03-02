@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 import { Message } from '../../models/message.service';
 import { Transport } from '../../models/transport';
@@ -21,7 +22,7 @@ export class HomePage {
   // cardInformation[].title and cardInformation[].body .
   private cardInformation = [];
 
-  constructor(public navCtrl: NavController, private transport: Transport, private alertController:AlertController) {
+  constructor(public navCtrl: NavController, private transport: Transport, private alertController: AlertController, private loadingController: LoadingController) {
 
   }
 
@@ -32,12 +33,14 @@ export class HomePage {
 
   // This method is responsible for the refresher component of the page
   doRefresh(refresher){
+    refresher.pullMin = 110;
+    refresher.pullMax = refresher.pullMin + 200;
     this.updateViewWithMessages();
     console.log('Refresher has been called.');
     setTimeout(() => {
       console.log('Operation has ended.');
       refresher.complete();
-    }, 1000);
+    }/*, 1000*/);
 }
 
   // This method is used to update the messages on the view.
@@ -100,6 +103,19 @@ export class HomePage {
                 }}]
     });
     alert.present();
+  }
+
+  // This method displays a loading controller
+  // The parameter passed is the time in ms
+  presentLoadingController(t: number){
+    let loading = this.loadingController.create({
+      spinner: 'crescent',
+      content: 'Loading please wait'
+    });
+    loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, t);
   }
 
 }
